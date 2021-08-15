@@ -15,7 +15,7 @@ const render = function() {
   todoList.textContent = '';
   todoCompleted.textContent = '';
 
-  todoData.forEach(function(item){
+  todoData.forEach(function(item, i){
     if (item.value !== '') {
       const li = document.createElement('li');
       li.classList.add('todo-item');
@@ -36,12 +36,14 @@ const render = function() {
       const btnTodoComplete = li.querySelector('.todo-complete');
       btnTodoComplete.addEventListener('click', function(){
         item.completed = !item.completed;
+        //Обновление данных
+      localStorage.data = JSON.stringify(todoData);
         render();
       });
 
       const btnTodoRemove = li.querySelector('.todo-remove');
       btnTodoRemove.addEventListener('click', function(){
-        todoData.splice(item, 1);
+        todoData.splice(i, 1);
         //Обновление данных
         localStorage.data = JSON.stringify(todoData);
         render();
@@ -57,8 +59,9 @@ todoControl.addEventListener('submit', function(event){
     value: headerInput.value,
     completed: false,
   };
-
-  todoData.push(newTodo);
+  if (newTodo.value !== '') {
+    todoData.push(newTodo);
+  }
   //Обновление данных
   localStorage.data = JSON.stringify(todoData);
 
