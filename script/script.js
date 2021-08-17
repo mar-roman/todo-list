@@ -5,11 +5,8 @@ const todoControl = document.querySelector('.todo-control'),
       todoList = document.querySelector('.todo-list'),
       todoCompleted = document.querySelector('.todo-completed');
 
-let todoData = [];
 //Заполнение данных при загрузке страницы
-if (localStorage.data !== null){
-  todoData = JSON.parse(localStorage.getItem('data'));
-}
+let todoData = JSON.parse(localStorage.getItem('data')) || [];
 
 const render = function() {
   todoList.textContent = '';
